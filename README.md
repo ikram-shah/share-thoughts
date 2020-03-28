@@ -1,5 +1,7 @@
 # sharethoughts
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/20eccbc9-15ba-4634-9a76-56eaead19b5a/deploy-status)](https://app.netlify.com/sites/sharethoughts/deploys)
+
 ## Project setup
 ```
 npm install
