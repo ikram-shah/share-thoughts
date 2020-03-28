@@ -1,23 +1,36 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "../store";
 import Home from "../views/Home.vue";
+import Signin from "../views/Signin.vue";
+import Signup from "../views/Signup.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/home",
     name: "Home",
-    component: Home
+    component: Home,
+    meta: {
+      authRequired: true
+    }
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    path: "/signin",
+    name: "Signin",
+    component: Signin,
+    meta: {
+      authRequired: false
+    }
+  },
+  {
+    path: "/signup",
+    name: "Signup",
+    component: Signup,
+    meta: {
+      authRequired: false
+    }
   }
 ];
 
@@ -25,6 +38,23 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  const authRequired = to.matched.some(route => route.meta.authRequired);
+  if (!authRequired) return next();
+
+  if (store.getters["auth/loggedIn"]) {
+    return store.dispatch("auth/validate").then(validUser => {
+      validUser ? next() : redirectToLogin();
+    });
+  }
+
+  redirectToLogin();
+
+  function redirectToLogin() {
+    router.push("signin");
+  }
 });
 
 export default router;
