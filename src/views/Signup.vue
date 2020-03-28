@@ -92,9 +92,9 @@ export default {
     signUp() {
       this.attemptSignUp(this.signupCreds)
         .then(() => {
-          console.log("A confirmation email has been sent to you!");
+          alert("A confirmation email has been sent to you!");
         })
-        .catch(err => console.log(err, "Something went wrong."));
+        .catch(err => alert(err, "Something went wrong."));
     }
   }
 };

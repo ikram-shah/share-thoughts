@@ -34,7 +34,7 @@ export default {
         .then(() => {
           this.$router.push(this.$route.query.redirect || "/signin");
         })
-        .catch(err => console.log(err, "Something went wrong."));
+        .catch(err => alert(err, "Something went wrong."));
     }
   }
 };

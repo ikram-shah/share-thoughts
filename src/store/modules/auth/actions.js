@@ -38,7 +38,7 @@ const attemptConfirmation = ({ dispatch }, credentials) => {
       .then(response => {
         credentials.token = null;
         dispatch("attemptLogin", credentials);
-        console.log(
+        alert(
           "Confirmation email sent",
           JSON.stringify({
             response
@@ -48,7 +48,7 @@ const attemptConfirmation = ({ dispatch }, credentials) => {
       })
       .catch(error => {
         reject(error);
-        console.log(error);
+        alert(error);
       });
   });
 };
@@ -60,13 +60,13 @@ const attemptSignUp = ({ commit }, credentials) => {
         full_name: credentials.username
       })
       .then(response => {
-        console.log("Confirmation email sent", response);
+        alert("Confirmation email sent", response);
         commit("TOGGLE_LOAD");
         resolve(response);
       })
       .catch(error => {
         reject(error);
-        console.log("It's an error", error);
+        alert("It's an error", error);
       });
   });
 };
@@ -82,7 +82,7 @@ const attemptLogout = ({ commit }) => {
       })
       .catch(error => {
         reject(error);
-        console.log("Could not log out", error);
+        alert("Could not log out", error);
       });
   });
 };

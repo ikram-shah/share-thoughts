@@ -98,7 +98,7 @@ export default {
       this.attemptLogin({ token, ...this.loginCreds })
         .then(() => {
           this.handleSuccessfulLogin();
-          console.log("You have successfully logged in");
+          alert("You have successfully logged in");
         })
         .catch(err => {
           this.handleUnsuccessfulLogin(err);
@@ -106,10 +106,10 @@ export default {
     },
     handleSuccessfulLogin() {
       this.transferToDashboard();
-      console.log("You have successfully logged in.");
+      alert("You have successfully logged in.");
     },
     handleUnsuccessfulLogin(err) {
-      console.log("Something went wrong.", err);
+      alert("Something went wrong.", err);
     },
     transferToDashboard() {
       this.$router.push(this.$route.query.redirect || "/home");
