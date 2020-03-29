@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -87,14 +87,36 @@ export default {
       }
     };
   },
+  mounted() {
+    if (this.currentUser) {
+      this.$buefy.toast.open({
+        message: `Not able to signup when logged in.`,
+        type: "is-warning"
+      });
+      this.$router.push("/home");
+    }
+  },
+  computed: {
+    ...mapState("auth", ["currentUser"])
+  },
   methods: {
     ...mapActions("auth", ["attemptSignUp"]),
     signUp() {
       this.attemptSignUp(this.signupCreds)
         .then(() => {
-          alert("A confirmation email has been sent to you!");
+          this.$buefy.toast.open({
+            message: `Your account has been created. Please login.`,
+            type: "is-primary",
+            duration: 5000
+          });
+          this.$router.push("signin");
         })
-        .catch(err => alert(err, "Something went wrong."));
+        .catch(err =>
+          this.$buefy.toast.open({
+            message: `Error: ${err}`,
+            type: "is-danger"
+          })
+        );
     }
   }
 };

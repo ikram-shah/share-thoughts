@@ -89,6 +89,15 @@ export default {
       }
     };
   },
+  mounted() {
+    if (this.currentUser) {
+      this.$buefy.toast.open({
+        message: `Not able to signin when logged in.`,
+        type: "is-warning"
+      });
+      this.$router.push("/home");
+    }
+  },
   methods: {
     ...mapActions("auth", ["attemptLogin"]),
     signIn() {
@@ -98,7 +107,6 @@ export default {
       this.attemptLogin({ token, ...this.loginCreds })
         .then(() => {
           this.handleSuccessfulLogin();
-          alert("You have successfully logged in");
         })
         .catch(err => {
           this.handleUnsuccessfulLogin(err);
@@ -106,10 +114,12 @@ export default {
     },
     handleSuccessfulLogin() {
       this.transferToDashboard();
-      alert("You have successfully logged in.");
     },
     handleUnsuccessfulLogin(err) {
-      alert("Something went wrong.", err);
+      this.$buefy.toast.open({
+        message: `Error: ${err.message}`,
+        type: "is-danger"
+      });
     },
     transferToDashboard() {
       this.$router.push(this.$route.query.redirect || "/home");

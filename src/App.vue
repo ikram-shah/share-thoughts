@@ -34,7 +34,12 @@ export default {
         .then(() => {
           this.$router.push(this.$route.query.redirect || "/signin");
         })
-        .catch(err => alert(err, "Something went wrong."));
+        .catch(err =>
+          this.$buefy.toast.open({
+            message: `Error ${err}`,
+            type: "is-danger"
+          })
+        );
     }
   }
 };
