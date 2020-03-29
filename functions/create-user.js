@@ -17,6 +17,10 @@ exports.handler = async (event, context, callback) => {
     console.log("success", response)
     return {
       statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json'
+    },
       body: JSON.stringify(response)
     }
   }
@@ -24,6 +28,10 @@ exports.handler = async (event, context, callback) => {
     console.log("error", error)
     return {
       statusCode: 400,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json'
+    },
       body: JSON.stringify(error)
     }
   }
