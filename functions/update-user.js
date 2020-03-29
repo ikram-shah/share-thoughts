@@ -1,4 +1,5 @@
-import faunadb from 'faunadb' 
+import faunadb from 'faunadb'
+import getId from './utils/getId'
 
 const q = faunadb.query
 const client = new faunadb.Client({
@@ -7,24 +8,21 @@ const client = new faunadb.Client({
 
 exports.handler = async (event, context, callback) => {
   const data = JSON.parse(event.body)
-  data['status'] = 'inactive'
-  console.log("Function `create-user` invoked", data)
-  const userItem = {
-    data: data
-  }
+  const id = getId(event.path)
+  console.log(`Function 'update-user-status' invoked. update id: ${id}`)
   try {
-    const response = await client.query(q.Create(q.Ref("classes/users"), userItem))
+    const response = await client.query(q.Update(q.Ref(`classes/users/${id}`), { data }))
     console.log("success", response)
-    return {
+    return callback(null, {
       statusCode: 200,
       body: JSON.stringify(response)
-    }
+    })
   }
   catch (error) {
     console.log("error", error)
-    return {
+    return callback(null, {
       statusCode: 400,
       body: JSON.stringify(error)
-    }
+    })
   }
 }

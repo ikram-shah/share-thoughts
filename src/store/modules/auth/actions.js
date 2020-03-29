@@ -15,7 +15,7 @@ const attemptLogin = ({ commit, dispatch }, credentials) => {
   return new Promise((resolve, reject) => {
     dispatch("attemptConfirmation", credentials).then(() => {
       auth
-        .login(credentials.email, credentials.password)
+        .login(credentials.email, credentials.password, true)
         .then(response => {
           resolve(response);
           commit("SET_CURRENT_USER", response);
@@ -38,12 +38,6 @@ const attemptConfirmation = ({ dispatch }, credentials) => {
       .then(response => {
         credentials.token = null;
         dispatch("attemptLogin", credentials);
-        alert(
-          "Confirmation email sent",
-          JSON.stringify({
-            response
-          })
-        );
         resolve(response);
       })
       .catch(error => {
@@ -60,7 +54,6 @@ const attemptSignUp = ({ commit }, credentials) => {
         full_name: credentials.username
       })
       .then(response => {
-        alert("Confirmation email sent", response);
         commit("TOGGLE_LOAD");
         resolve(response);
       })
