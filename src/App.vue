@@ -3,12 +3,13 @@
     <div id="nav">
       <b-navbar v-show="currentUser">
         <template slot="brand">
-          <b-navbar-item tag="router-link" :to="{ path: '/home' }">
-            HOME
-          </b-navbar-item>
+          <b-navbar-item tag="router-link" :to="{ path: '/home' }">HOME</b-navbar-item>
         </template>
 
         <template slot="end">
+          <b-navbar-item tag="div">
+          <StatusBar />
+          </b-navbar-item>
           <b-navbar-item tag="div">
             <div class="buttons">
               <a @click="logout" class="button is-light">Log Out</a>
@@ -23,9 +24,13 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import StatusBar from "@/components/StatusBar";
 export default {
   computed: {
     ...mapState("auth", ["currentUser"])
+  },
+  components: {
+    StatusBar
   },
   methods: {
     ...mapActions("auth", ["attemptLogout"]),
@@ -124,7 +129,7 @@ $link-focus-border: $primary;
     color: #2c3e50;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: $primary;
     }
   }
 }
