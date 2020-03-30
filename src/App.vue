@@ -3,12 +3,14 @@
     <div id="nav">
       <b-navbar v-show="currentUser">
         <template slot="brand">
-          <b-navbar-item tag="router-link" :to="{ path: '/home' }">HOME</b-navbar-item>
+          <b-navbar-item tag="router-link" :to="{ path: '/home' }"
+            >HOME</b-navbar-item
+          >
         </template>
 
         <template slot="end">
           <b-navbar-item tag="div">
-          <StatusBar />
+            <StatusBar />
           </b-navbar-item>
           <b-navbar-item tag="div">
             <div class="buttons">

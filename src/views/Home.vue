@@ -6,9 +6,9 @@
 </template>
 
 <script>
-import createFeed from '@/components/CreateFeed.vue'
-import viewFeeds from '@/components/ViewFeeds.vue'
+import createFeed from "@/components/CreateFeed.vue";
+import viewFeeds from "@/components/ViewFeeds.vue";
 export default {
-  components: { createFeed, viewFeeds}
-}
+  components: { createFeed, viewFeeds }
+};
 </script>

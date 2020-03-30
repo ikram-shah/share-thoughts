@@ -1,10 +1,18 @@
 <template id="addTweet">
   <div class="container addTweetContainer">
-    <b-input class="is-mobile" rows=2 expanded size="is-medium" placeholder="Any thoughts?" v-model="tweet" maxlength="140" type="textarea"></b-input>
+    <b-input
+      class="is-mobile"
+      rows="2"
+      expanded
+      size="is-medium"
+      placeholder="Any thoughts?"
+      v-model="tweet"
+      maxlength="140"
+      type="textarea"
+    ></b-input>
     <div class="tweetLinkContainer">
-       <b-button type="is-primary" @click="postTweet()"> Share </b-button>
+      <b-button type="is-primary" @click="postTweet()"> Share </b-button>
     </div>
-   
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <b-tooltip :label="avatarLabel" position="is-bottom">
     <div class="avatar__icon" :style="backgroundColor">
-      <div class="avatar__initials">{{name[0]}}</div>
+      <div class="avatar__initials">{{ name[0] }}</div>
       <!-- <img
             class="avatar__image"
             style="border:2px solid green"
@@ -17,9 +17,9 @@
 export default {
   props: ["status", "name"],
   computed: {
-      avatarLabel() {
-          return `${this.name} (${this.status}) `;
-      },
+    avatarLabel() {
+      return `${this.name} (${this.status}) `;
+    },
     backgroundColor() {
       var hue = Math.floor(Math.random() * 360);
       var pastel = "hsl(" + hue + ", 100%, 90%)";

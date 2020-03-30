@@ -1,7 +1,12 @@
 <template>
   <div>
-    <div >
-      <avatar v-for="(items,i) in socket.message" :key="i" :status="items.data.status" :name="items.data.user.user_metadata.full_name" />
+    <div>
+      <avatar
+        v-for="(items, i) in socket.message"
+        :key="i"
+        :status="items.data.status"
+        :name="items.data.user.user_metadata.full_name"
+      />
     </div>
   </div>
 </template>
