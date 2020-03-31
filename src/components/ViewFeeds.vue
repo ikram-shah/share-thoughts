@@ -3,9 +3,9 @@
     <div v-for="item in feed" :key="item.name">
       <div class="card">
         <div class="card-content">
-          <p class="title is-spaced">{{item.data.body}}</p>
+          <p class="title is-spaced">{{ item.data.body }}</p>
           <hr />
-          <p class="subtitle">{{item.data.author}}</p>
+          <p class="subtitle">{{ item.data.author }}</p>
         </div>
       </div>
       <br />
@@ -49,7 +49,7 @@ export default {
 }
 
 .title {
-    font-size: x-large !important;
+  font-size: x-large !important;
 }
 
 .card {

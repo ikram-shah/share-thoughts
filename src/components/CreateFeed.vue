@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import EventBus from '@/eventBus'
+import EventBus from "@/eventBus";
 import { mapState } from "vuex";
 export default {
   data() {
@@ -41,9 +41,8 @@ export default {
         .then(function(res) {
           return res.json();
         })
-        .then(function(data) {
+        .then(function() {
           EventBus.$emit("refreshFeedData");
-          console.log(JSON.stringify(data));
         });
     }
   }

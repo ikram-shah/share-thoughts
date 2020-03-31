@@ -36,19 +36,25 @@
                     />
                   </div>
                   <div class="control">
-                    <b-button class="astext" type="is-text" size="is-small">Forgot Password?</b-button>
+                    <b-button class="astext" type="is-text" size="is-small"
+                      >Forgot Password?</b-button
+                    >
                   </div>
                 </div>
                 <br />
                 <div class="columns is-mobile">
                   <b-field class="column" grouped>
                     <p class="control">
-                      <b-button @click="$router.push('signup')">Sign Up</b-button>
+                      <b-button @click="$router.push('signup')"
+                        >Sign Up</b-button
+                      >
                     </p>
                   </b-field>
                   <b-field grouped class="column" position="is-right">
                     <p class="control">
-                      <b-button @click="signIn" class="is-primary">Sign In</b-button>
+                      <b-button @click="signIn" class="is-primary"
+                        >Sign In</b-button
+                      >
                     </p>
                   </b-field>
                 </div>
@@ -105,7 +111,7 @@ export default {
     },
     handleSuccessfulLogin() {
       this.transferToDashboard();
-      this.updateStatus()
+      this.updateStatus();
     },
     handleUnsuccessfulLogin(err) {
       this.$buefy.toast.open({

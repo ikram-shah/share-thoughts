@@ -53,12 +53,16 @@
                 <div class="columns is-mobile">
                   <b-field class="column" grouped>
                     <p class="control">
-                      <b-button @click="$router.push('signin')">Sign In</b-button>
+                      <b-button @click="$router.push('signin')"
+                        >Sign In</b-button
+                      >
                     </p>
                   </b-field>
                   <b-field grouped class="column" position="is-right">
                     <p class="control">
-                      <b-button @click="signUp" class="is-primary">Sign Up</b-button>
+                      <b-button @click="signUp" class="is-primary"
+                        >Sign Up</b-button
+                      >
                     </p>
                   </b-field>
                 </div>
