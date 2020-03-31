@@ -28,12 +28,12 @@ wss.on('connection', (ws, request) => {
     ws.uuid = request.url.replace('/?uuid=', '')
     console.log(ws.uuid)
     console.log('Client connected');
-    updateStatus(ws.uuid, 'active')
+    updateStatus(ws.uuid, 'online')
     ws.on('message', function incoming(message) {
         console.log(JSON.parse(message), `from user ${ws.uuid}`);
     });
     ws.on('close', () => {
-        updateStatus(ws.uuid, 'inactive')
+        updateStatus(ws.uuid, 'offline')
         console.log('Client disconnected')
 
     });
