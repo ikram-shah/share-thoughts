@@ -1,73 +1,63 @@
 <template>
-  <div class="signin">
-    <section class="section hero">
-      <div class="hero-body">
-        <div class="container">
-          <div class="columns is-centered">
-            <div class="column is-two-fifths">
-              <div class="card">
-                <div class="card-content">
-                  <div class="is-title-bar" style="text-align:center">
-                    <h5 class="title is-4">SHARE THOUGHTS</h5>
-                  </div>
-                  <hr />
-                  <section>
-                    <div class="field">
-                      <label class="label">Email</label>
-                      <div class="control is-clearfix">
-                        <input
-                          v-model="loginCreds.email"
-                          type="email"
-                          name="email"
-                          required="required"
-                          autofocus="autofocus"
-                          class="input"
-                        />
-                      </div>
-                    </div>
-                    <div class="field">
-                      <label class="label">Password</label>
-                      <div class="control is-clearfix">
-                        <input
-                          v-model="loginCreds.password"
-                          type="password"
-                          name="password"
-                          required="required"
-                          autofocus="autofocus"
-                          class="input"
-                        />
-                      </div>
-                      <div class="control">
-                        <b-button class="astext" type="is-text" size="is-small"
-                          >Forgot Password?</b-button
-                        >
-                      </div>
-                    </div>
-                    <br />
-                    <div class="columns is-mobile">
-                      <b-field class="column" grouped>
-                        <p class="control">
-                          <b-button @click="$router.push('signup')"
-                            >Sign Up</b-button
-                          >
-                        </p>
-                      </b-field>
-                      <b-field grouped class="column" position="is-right">
-                        <p class="control">
-                          <b-button @click="signIn" class="is-primary"
-                            >Sign In</b-button
-                          >
-                        </p>
-                      </b-field>
-                    </div>
-                  </section>
-                </div>
+  <div>
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-fifths">
+          <div class="card">
+            <div class="card-content">
+              <div class="is-title-bar" style="text-align:center">
+                <h5 class="title is-4">SHARE THOUGHTS</h5>
               </div>
+              <hr />
+              <section>
+                <div class="field">
+                  <label class="label">Email</label>
+                  <div class="control is-clearfix">
+                    <input
+                      v-model="loginCreds.email"
+                      type="email"
+                      name="email"
+                      required="required"
+                      autofocus="autofocus"
+                      class="input"
+                    />
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Password</label>
+                  <div class="control is-clearfix">
+                    <input
+                      v-model="loginCreds.password"
+                      type="password"
+                      name="password"
+                      required="required"
+                      autofocus="autofocus"
+                      class="input"
+                    />
+                  </div>
+                  <div class="control">
+                    <b-button class="astext" type="is-text" size="is-small">Forgot Password?</b-button>
+                  </div>
+                </div>
+                <br />
+                <div class="columns is-mobile">
+                  <b-field class="column" grouped>
+                    <p class="control">
+                      <b-button @click="$router.push('signup')">Sign Up</b-button>
+                    </p>
+                  </b-field>
+                  <b-field grouped class="column" position="is-right">
+                    <p class="control">
+                      <b-button @click="signIn" class="is-primary">Sign In</b-button>
+                    </p>
+                  </b-field>
+                </div>
+              </section>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   </div>
 </template>
 

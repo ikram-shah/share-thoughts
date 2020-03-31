@@ -1,8 +1,8 @@
 <template>
-  <section class="section">
+  <div>
     <div class="container">
       <div class="columns is-centered">
-        <div class="column is-two-fifths">
+        <div class="column is-three-fifths">
           <div class="card">
             <div class="card-content">
               <div class="is-title-bar" style="text-align:center">
@@ -50,19 +50,15 @@
                   </div>
                 </div>
                 <br />
-                <div class="columns">
+                <div class="columns is-mobile">
                   <b-field class="column" grouped>
                     <p class="control">
-                      <b-button @click="$router.push('signin')"
-                        >Sign In</b-button
-                      >
+                      <b-button @click="$router.push('signin')">Sign In</b-button>
                     </p>
                   </b-field>
                   <b-field grouped class="column" position="is-right">
                     <p class="control">
-                      <b-button @click="signUp" class="is-primary"
-                        >Sign Up</b-button
-                      >
+                      <b-button @click="signUp" class="is-primary">Sign Up</b-button>
                     </p>
                   </b-field>
                 </div>
@@ -72,7 +68,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
