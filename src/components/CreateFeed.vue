@@ -11,28 +11,40 @@
       type="textarea"
     ></b-input>
     <div class="tweetLinkContainer">
-      <b-button type="is-primary" @click="postTweet()"> Share </b-button>
+      <b-button type="is-primary" @click="postTweet()">Share</b-button>
     </div>
   </div>
 </template>
 
 <script>
-import store from "@/store";
+import EventBus from '@/eventBus'
+import { mapState } from "vuex";
 export default {
   data() {
     return {
       tweet: ""
     };
   },
+  computed: {
+    ...mapState("auth", ["currentUser"])
+  },
   methods: {
     postTweet() {
-      const tweet = {
-        body: this.tweet,
-        date: "now",
-        author: "Me",
-        avatar: "./images/egg.jpeg"
-      };
-      store.addtweetAction(tweet);
+      fetch(`http://localhost:9000/.netlify/functions/create-feed`, {
+        method: "POST",
+        body: JSON.stringify({
+          body: this.tweet,
+          date: new Date(),
+          author: this.currentUser.user_metadata.full_name
+        })
+      })
+        .then(function(res) {
+          return res.json();
+        })
+        .then(function(data) {
+          EventBus.$emit("refreshFeedData");
+          console.log(JSON.stringify(data));
+        });
     }
   }
 };
@@ -40,7 +52,7 @@ export default {
 
 <style>
 .addTweetContainer {
-  max-width: 65%;
+  max-width: 70%;
   text-align: center;
   display: flex;
   flex-direction: column;

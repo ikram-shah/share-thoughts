@@ -1,13 +1,7 @@
 <template>
-  <b-tooltip :label="avatarLabel" position="is-bottom">
+  <b-tooltip :label="avatarLabel" type="is-dark" position="is-bottom">
     <div class="avatar__icon" :style="backgroundColor">
       <div class="avatar__initials">{{ name[0] }}</div>
-      <!-- <img
-            class="avatar__image"
-            style="border:2px solid green"
-            src="https://s3.amazonaws.com/uifaces/faces/twitter/c_southam/128.jpg"
-            alt="alt"
-      />-->
       <div class="avatar__notifications" :style="statusColor" />
     </div>
   </b-tooltip>
@@ -26,9 +20,9 @@ export default {
       return "background: " + pastel;
     },
     statusColor() {
-      if (this.status === "active") {
+      if (this.status === "online") {
         return "background: green";
-      } else if (this.status === "inactive") {
+      } else if (this.status === "offline") {
         return "background: red";
       } else {
         return "background: orange";

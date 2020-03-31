@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import EventBus from "@/eventBus";
 import { mapState, mapActions } from "vuex";
 
 export default {
@@ -104,6 +105,7 @@ export default {
     },
     handleSuccessfulLogin() {
       this.transferToDashboard();
+      this.updateStatus()
     },
     handleUnsuccessfulLogin(err) {
       this.$buefy.toast.open({
@@ -113,6 +115,9 @@ export default {
     },
     transferToDashboard() {
       this.$router.push(this.$route.query.redirect || "/home");
+    },
+    updateStatus() {
+      EventBus.$emit("updateStatusToOnline");
     }
   }
 };

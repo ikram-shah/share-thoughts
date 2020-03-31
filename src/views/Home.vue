@@ -1,6 +1,7 @@
 <template>
   <div>
     <createFeed />
+    <br />
     <viewFeeds />
   </div>
 </template>

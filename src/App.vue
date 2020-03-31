@@ -1,11 +1,9 @@
 <template>
   <div id="app">
     <div id="nav">
-      <b-navbar v-show="currentUser">
+      <b-navbar v-if="currentUser">
         <template slot="brand">
-          <b-navbar-item tag="router-link" :to="{ path: '/home' }"
-            >HOME</b-navbar-item
-          >
+          <b-navbar-item tag="router-link" :to="{ path: '/home' }">HOME</b-navbar-item>
         </template>
 
         <template slot="end">
@@ -13,9 +11,7 @@
             <StatusBar />
           </b-navbar-item>
           <b-navbar-item tag="div">
-            <div class="buttons">
-              <a @click="logout" class="button is-light">Log Out</a>
-            </div>
+            <b-button type="is-dark" outlined @click="logout">Log out</b-button>
           </b-navbar-item>
         </template>
       </b-navbar>
@@ -26,6 +22,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import EventBus from "@/eventBus";
 import StatusBar from "@/components/StatusBar";
 export default {
   computed: {
@@ -37,6 +34,7 @@ export default {
   methods: {
     ...mapActions("auth", ["attemptLogout"]),
     logout() {
+      EventBus.$emit("updateStatusToOffline");
       this.attemptLogout()
         .then(() => {
           this.$router.push(this.$route.query.redirect || "/signin");
@@ -134,5 +132,13 @@ $link-focus-border: $primary;
       color: $primary;
     }
   }
+}
+
+html {
+  background: #e2e1e13f;
+}
+
+.navbar {
+  background: #e2e1e100;
 }
 </style>
