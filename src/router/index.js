@@ -2,12 +2,21 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "../store";
 import Home from "../views/Home.vue";
+import Coverpage from "../views/CoverPage.vue";
 import Signin from "../views/Signin.vue";
 import Signup from "../views/Signup.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/",
+    name: "Coverpage",
+    component: Coverpage,
+    meta: {
+      authRequired: false
+    }
+  },
   {
     path: "/home",
     name: "Home",

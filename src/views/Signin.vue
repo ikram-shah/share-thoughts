@@ -36,7 +36,11 @@
                     />
                   </div>
                   <div class="control">
-                    <b-button class="astext" type="is-text" size="is-small"
+                    <b-button
+                      disabled
+                      class="astext"
+                      type="is-text"
+                      size="is-small"
                       >Forgot Password?</b-button
                     >
                   </div>
