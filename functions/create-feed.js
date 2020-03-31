@@ -7,13 +7,12 @@ const client = new faunadb.Client({
 
 exports.handler = async (event, context, callback) => {
   const data = JSON.parse(event.body)
-  data['status'] = 'offline'
-  console.log("Function `create-user` invoked", data)
-  const userItem = {
+  console.log("Function `create-feed` invoked", data)
+  const feedItem = {
     data: data
   }
   try {
-    const response = await client.query(q.Create(q.Ref("classes/users"), userItem))
+    const response = await client.query(q.Create(q.Ref("classes/feeds"), feedItem))
     console.log("success", response)
     return {
       statusCode: 200,
