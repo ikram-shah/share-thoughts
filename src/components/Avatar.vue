@@ -1,16 +1,31 @@
 <template>
-  <b-tooltip :label="avatarLabel" type="is-dark" position="is-bottom">
-    <div class="avatar__icon" :style="backgroundColor">
-      <div class="avatar__initials">{{ name[0] }}</div>
-      <div class="avatar__notifications" :style="statusColor" />
-    </div>
-  </b-tooltip>
+  <span>
+    <b-tooltip :label="avatarLabel" type="is-dark" position="is-bottom">
+      <div v-if="!showCount" class="avatar__icon" :style="backgroundColor">
+        <div class="avatar__initials">{{ name[0] }}</div>
+         <img
+            class="avatar__image"
+            :src="randomAvatar"
+      />
+        <div class="avatar__notifications" :style="statusColor" />
+      </div>
+    </b-tooltip>
+    <b-tooltip size="is-small"  :label="toolTip" type="is-dark" multilined animated position="is-bottom">
+      <div v-if="showCount" class="avatar__icon" :style="backgroundColor">
+        <div class="avatar__initials">{{ name }}</div>
+      </div>
+    </b-tooltip>
+  </span>
 </template>
 
 <script>
 export default {
-  props: ["status", "name"],
+  props: ["status", "name", "showCount", "toolTip"],
   computed: {
+    randomAvatar() { 
+      let num = Math.floor(Math.random() * 15) + 1
+      return require(`../assets/avatars/${num}.png`)
+    },
     avatarLabel() {
       return `${this.name} (${this.status}) `;
     },
@@ -32,7 +47,7 @@ export default {
 
   data() {
     return {
-      //   backgroundColor: "#" + Math.floor(Math.random() * 16777215).toString(16)
+      selectedImage: null
     };
   }
 };
@@ -56,7 +71,7 @@ body {
   align-items: center;
 }
 .avatar__icon {
-  /* position: relative; */
+  position: relative;
   display: inline-table;
   height: 2.2em;
   width: 2.2em;
@@ -116,5 +131,17 @@ body {
 }
 .avatar__name {
   margin-left: 1rem;
+}
+._abcd.b-tooltip:after {
+    white-space: pre;
+}
+
+.b-tooltip.is-bottom.is-multiline.is-small:after {
+    width: unset;
+}
+
+.navbar-item img {
+  max-height: none;
+  padding: 5px;
 }
 </style>
