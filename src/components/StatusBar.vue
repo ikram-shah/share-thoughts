@@ -1,25 +1,32 @@
 <template>
   <div>
-    <div v-if="socket.message.length <= 5">
-      <avatar
-        v-for="(items, i) in socket.message"
-        :key="i"
-        :status="items.data.status"
-        :name="items.data.user.user_metadata.full_name"
-      />
-    </div>
-    <div v-else>
-      <avatar
-        v-for="(items, i) in socket.message.slice(0, userDisplayCount)"
-        :key="i"
-        :status="items.data.status"
-        :name="items.data.user.user_metadata.full_name"
-      />
-      <avatar
-        :showCount="true"
-        :name="countToDisplay"
-        :toolTip="toolTipUserStatus"
-      />
+    <b-loading
+      :is-full-page="false"
+      :active.sync="isLoading"
+      :can-cancel="false"
+    ></b-loading>
+    <div>
+      <div v-if="socket.message.length <= 5">
+        <avatar
+          v-for="(items, i) in socket.message"
+          :key="i"
+          :status="items.data.status"
+          :name="items.data.user.user_metadata.full_name"
+        />
+      </div>
+      <div v-else>
+        <avatar
+          v-for="(items, i) in socket.message.slice(0, userDisplayCount)"
+          :key="i"
+          :status="items.data.status"
+          :name="items.data.user.user_metadata.full_name"
+        />
+        <avatar
+          :showCount="true"
+          :name="countToDisplay"
+          :toolTip="toolTipUserStatus"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -33,11 +40,12 @@ import VueNativeSock from "vue-native-websocket";
 import Avatar from "@/components/Avatar";
 
 export default {
-  name: "home",
+  name: "StatusBar",
   components: { Avatar },
   data() {
     return {
       userData: null,
+      isLoading: false,
       userDisplayCount: 5,
       updatePayload: {
         userId: null,
@@ -73,10 +81,18 @@ export default {
     });
   },
   methods: {
+    openLoading() {
+      this.isLoading = true;
+    },
+    closeLoading() {
+      this.isLoading = false;
+    },
     readAllUsers() {
+      this.openLoading();
       axios
         .get("http://localhost:9000/.netlify/functions/read-all-users")
         .then(response => {
+          this.closeLoading();
           this.userData = response.data;
           this.getUserID();
           this.updateStatus("online", this.updatePayload.userId);

@@ -1,14 +1,21 @@
 <template>
-  <div class="container">
-    <div v-for="item in feed" :key="item.name">
-      <div class="card">
-        <div class="card-content">
-          <p class="title is-spaced">{{ item.data.body }}</p>
-          <hr />
-          <p class="subtitle">{{ item.data.author }}</p>
+  <div>
+    <b-loading
+      :is-full-page="false"
+      :active.sync="isLoading"
+      :can-cancel="false"
+    ></b-loading>
+    <div class="container">
+      <div v-for="item in feed" :key="item.name">
+        <div class="card">
+          <div class="card-content">
+            <p class="title is-spaced">{{ item.data.body }}</p>
+            <hr />
+            <p class="subtitle">{{ item.data.author }}</p>
+          </div>
         </div>
+        <br />
       </div>
-      <br />
     </div>
   </div>
 </template>
@@ -18,7 +25,8 @@ import EventBus from "@/eventBus";
 export default {
   data() {
     return {
-      feed: null
+      feed: null,
+      isLoading: false
     };
   },
   mounted() {
@@ -28,13 +36,29 @@ export default {
     });
   },
   methods: {
+    openLoading() {
+      this.isLoading = true;
+    },
+    closeLoading() {
+      this.isLoading = false;
+    },
     getFeeds() {
+      let here = this;
+      here.openLoading();
       fetch("http://localhost:9000/.netlify/functions/read-all-feeds")
         .then(response => {
           return response.json();
         })
         .then(data => {
-          this.feed = data;
+          here.closeLoading();
+          here.feed = data;
+        })
+        .catch(err => {
+          here.closeLoading();
+          here.$buefy.toast.open({
+            message: `Error: ${err}`,
+            type: "is-danger"
+          });
         });
     }
   }

@@ -42,7 +42,7 @@ const attemptConfirmation = ({ dispatch }, credentials) => {
       })
       .catch(error => {
         reject(error);
-        alert(error);
+        // alert(error);
       });
   });
 };
@@ -59,7 +59,7 @@ const attemptSignUp = ({ commit }, credentials) => {
       })
       .catch(error => {
         reject(error);
-        alert("It's an error", error);
+        // alert("It's an error", error);
       });
   });
 };
@@ -75,7 +75,7 @@ const attemptLogout = ({ commit }) => {
       })
       .catch(error => {
         reject(error);
-        alert("Could not log out", error);
+        // alert("Could not log out", error);
       });
   });
 };

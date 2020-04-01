@@ -6,6 +6,9 @@
           <b-navbar-item tag="router-link" :to="{ path: '/home' }"
             >HOME</b-navbar-item
           >
+          <b-navbar-item tag="router-link" :to="{ path: '/users' }"
+            >USERS</b-navbar-item
+          >
         </template>
 
         <template slot="end">
@@ -13,11 +16,21 @@
             <StatusBar />
           </b-navbar-item>
           <b-navbar-item tag="div">
+            <h1 class="subtitle">
+              {{ this.currentUser.user_metadata.full_name }}
+            </h1>
+          </b-navbar-item>
+          <b-navbar-item tag="div">
             <b-button type="is-dark" outlined @click="logout">Log out</b-button>
           </b-navbar-item>
         </template>
       </b-navbar>
     </div>
+    <b-loading
+      :is-full-page="false"
+      :active.sync="isLoading"
+      :can-cancel="false"
+    ></b-loading>
     <router-view />
   </div>
 </template>
@@ -33,20 +46,34 @@ export default {
   components: {
     StatusBar
   },
+  data() {
+    return {
+      isLoading: false
+    };
+  },
   methods: {
-    ...mapActions("auth", ["attemptLogout"]),
+    ...mapActions("auth", ["attemptLogout", "addNotification"]),
+    openLoading() {
+      this.isLoading = true;
+    },
+    closeLoading() {
+      this.isLoading = false;
+    },
     logout() {
+      this.openLoading();
       EventBus.$emit("updateStatusToOffline");
       this.attemptLogout()
         .then(() => {
-          this.$router.push(this.$route.query.redirect || "/signin");
+          this.closeLoading();
+          this.$router.push(this.$route.query.redirect || "/");
         })
-        .catch(err =>
+        .catch(err => {
+          this.closeLoading();
           this.$buefy.toast.open({
             message: `Error ${err}`,
             type: "is-danger"
-          })
-        );
+          });
+        });
     }
   }
 };

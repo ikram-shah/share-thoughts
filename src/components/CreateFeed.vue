@@ -1,17 +1,24 @@
-<template id="addTweet">
-  <div class="container addTweetContainer">
-    <b-input
-      class="is-mobile"
-      rows="2"
-      expanded
-      size="is-medium"
-      placeholder="Any thoughts?"
-      v-model="tweet"
-      maxlength="140"
-      type="textarea"
-    ></b-input>
-    <div class="tweetLinkContainer">
-      <b-button type="is-primary" @click="postTweet()">Share</b-button>
+<template>
+  <div>
+    <b-loading
+      :is-full-page="false"
+      :active.sync="isLoading"
+      :can-cancel="false"
+    ></b-loading>
+    <div class="container addFeedContainer">
+      <b-input
+        class="is-mobile"
+        rows="2"
+        expanded
+        size="is-medium"
+        placeholder="Any thoughts?"
+        v-model="feed"
+        maxlength="140"
+        type="textarea"
+      ></b-input>
+      <div class="feedLinkContainer">
+        <b-button type="is-primary" @click="postFeed()">Share</b-button>
+      </div>
     </div>
   </div>
 </template>
@@ -22,18 +29,27 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      tweet: ""
+      feed: "",
+      isLoading: false
     };
   },
   computed: {
     ...mapState("auth", ["currentUser"])
   },
   methods: {
-    postTweet() {
+    openLoading() {
+      this.isLoading = true;
+    },
+    closeLoading() {
+      this.isLoading = false;
+    },
+    postFeed() {
+      let here = this;
+      here.openLoading();
       fetch(`http://localhost:9000/.netlify/functions/create-feed`, {
         method: "POST",
         body: JSON.stringify({
-          body: this.tweet,
+          body: this.feed,
           date: new Date(),
           author: this.currentUser.user_metadata.full_name
         })
@@ -42,7 +58,19 @@ export default {
           return res.json();
         })
         .then(function() {
+          here.closeLoading();
+          here.$buefy.toast.open({
+            message: `Added feed successfully.`,
+            type: "is-primary"
+          });
           EventBus.$emit("refreshFeedData");
+        })
+        .catch(err => {
+          this.closeLoading();
+          this.$buefy.toast.open({
+            message: `Error: ${err}`,
+            type: "is-danger"
+          });
         });
     }
   }
@@ -50,19 +78,19 @@ export default {
 </script>
 
 <style>
-.addTweetContainer {
+.addFeedContainer {
   max-width: 70%;
   text-align: center;
   display: flex;
   flex-direction: column;
 }
-.addTweetContainer textarea {
+.addFeedContainer textarea {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
   outline: 0px;
   padding: 10px 20px;
 }
-.tweetLinkContainer {
+.feedLinkContainer {
   text-align: right;
 }
 </style>

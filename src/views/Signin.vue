@@ -1,5 +1,10 @@
 <template>
   <div>
+    <b-loading
+      :is-full-page="false"
+      :active.sync="isLoading"
+      :can-cancel="false"
+    ></b-loading>
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-three-fifths">
@@ -14,10 +19,10 @@
                   <label class="label">Email</label>
                   <div class="control is-clearfix">
                     <input
+                      required
                       v-model="loginCreds.email"
                       type="email"
                       name="email"
-                      required="required"
                       autofocus="autofocus"
                       class="input"
                     />
@@ -27,10 +32,10 @@
                   <label class="label">Password</label>
                   <div class="control is-clearfix">
                     <input
+                      required
                       v-model="loginCreds.password"
                       type="password"
                       name="password"
-                      required="required"
                       autofocus="autofocus"
                       class="input"
                     />
@@ -79,11 +84,11 @@ export default {
   computed: {
     ...mapState("auth", ["currentUser"])
   },
-
   data() {
     return {
       auth: null,
       isLogin: true,
+      isLoading: false,
       loginCreds: {
         email: null,
         password: null
@@ -101,17 +106,28 @@ export default {
   },
   methods: {
     ...mapActions("auth", ["attemptLogin"]),
+    openLoading() {
+      this.isLoading = true;
+    },
+    closeLoading() {
+      this.isLoading = false;
+    },
     signIn() {
-      let token = decodeURIComponent(window.location.search)
-        .substring(1)
-        .split("confirmation_token=")[1];
-      this.attemptLogin({ token, ...this.loginCreds })
-        .then(() => {
-          this.handleSuccessfulLogin();
-        })
-        .catch(err => {
-          this.handleUnsuccessfulLogin(err);
-        });
+      if (this.validateFields()) {
+        this.openLoading();
+        let token = decodeURIComponent(window.location.search)
+          .substring(1)
+          .split("confirmation_token=")[1];
+        this.attemptLogin({ token, ...this.loginCreds })
+          .then(() => {
+            this.closeLoading();
+            this.handleSuccessfulLogin();
+          })
+          .catch(err => {
+            this.closeLoading();
+            this.handleUnsuccessfulLogin(err);
+          });
+      }
     },
     handleSuccessfulLogin() {
       this.transferToDashboard();
@@ -119,9 +135,24 @@ export default {
     },
     handleUnsuccessfulLogin(err) {
       this.$buefy.toast.open({
-        message: `Error: ${err.message}`,
+        message: `Error: ${err.error_description}`,
         type: "is-danger"
       });
+    },
+    validateFields() {
+      if (
+        this.loginCreds.email == null ||
+        this.loginCreds.email == "" ||
+        this.loginCreds.password == null ||
+        this.loginCreds.password == ""
+      ) {
+        this.$buefy.toast.open({
+          message: `Error: Invalid entry for email (or) password`,
+          type: "is-danger"
+        });
+      } else {
+        return true;
+      }
     },
     transferToDashboard() {
       this.$router.push(this.$route.query.redirect || "/home");

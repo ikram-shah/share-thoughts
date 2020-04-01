@@ -1,5 +1,10 @@
 <template>
   <div>
+    <b-loading
+      :is-full-page="false"
+      :active.sync="isLoading"
+      :can-cancel="false"
+    ></b-loading>
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-three-fifths">
@@ -80,6 +85,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
+      isLoading: false,
       signupCreds: {
         username: null,
         email: null,
@@ -101,22 +107,50 @@ export default {
   },
   methods: {
     ...mapActions("auth", ["attemptSignUp"]),
+    openLoading() {
+      this.isLoading = true;
+    },
+    closeLoading() {
+      this.isLoading = false;
+    },
     signUp() {
-      this.attemptSignUp(this.signupCreds)
-        .then(() => {
-          this.$buefy.toast.open({
-            message: `Your account has been created. Please login.`,
-            type: "is-primary",
-            duration: 5000
-          });
-          this.$router.push("signin");
-        })
-        .catch(err =>
-          this.$buefy.toast.open({
-            message: `Error: ${err}`,
-            type: "is-danger"
+      if (this.validateFields()) {
+        this.openLoading();
+        this.attemptSignUp(this.signupCreds)
+          .then(() => {
+            this.closeLoading();
+            this.$buefy.toast.open({
+              message: `Your account has been created. Please login.`,
+              type: "is-primary",
+              duration: 5000
+            });
+            this.$router.push("signin");
           })
-        );
+          .catch(err => {
+            this.closeLoading();
+            this.$buefy.toast.open({
+              message: `Error: ${err}`,
+              type: "is-danger"
+            });
+          });
+      }
+    },
+    validateFields() {
+      if (
+        this.signupCreds.username == null ||
+        this.signupCreds.username == "" ||
+        this.signupCreds.email == null ||
+        this.signupCreds.email == "" ||
+        this.signupCreds.password == null ||
+        this.signupCreds.password == ""
+      ) {
+        this.$buefy.toast.open({
+          message: `Error: Invalid entry for username (or) email (or) password`,
+          type: "is-danger"
+        });
+      } else {
+        return true;
+      }
     }
   }
 };
