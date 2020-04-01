@@ -16,6 +16,9 @@ export async function handler(event, context) {
             return q.Get(ref)
         })
         const ret = await client.query(getAllUserDataQuery)
+        console.log(ret.sort(function(a, b) {
+            return new Date(b['data']['lastUpdated']) - new Date(a['data']['lastUpdated']);
+        }))
         return {
             statusCode: 200,
             headers: {
