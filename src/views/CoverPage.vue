@@ -11,3 +11,17 @@
     </div>
   </section>
 </template>
+
+<script>
+import { mapState } from "vuex";
+export default {
+  beforeMount(){
+    if (this.currentUser!=null){
+      this.$router.push('/home')
+    }
+  },
+   computed: {
+    ...mapState("auth", ["currentUser"], ["socket"]),
+   }
+}
+</script>

@@ -106,7 +106,7 @@ export default {
       this.updatePayload.userId = user[0].ref["@ref"].id;
       Vue.use(
         VueNativeSock,
-        `wss://sharethoughts-presense.herokuapp.com/?uuid=${this.updatePayload.userId}`,
+        `${process.env.VUE_APP_SOCKET_URL}/?uuid=${this.updatePayload.userId}`,
         { format: "json", store: store }
       );
       return this.updatePayload.userId;
