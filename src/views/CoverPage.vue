@@ -15,13 +15,13 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  beforeMount(){
-    if (this.currentUser!=null){
-      this.$router.push('/home')
+  beforeMount() {
+    if (this.currentUser != null) {
+      this.$router.push("/home");
     }
   },
-   computed: {
-    ...mapState("auth", ["currentUser"], ["socket"]),
-   }
-}
+  computed: {
+    ...mapState("auth", ["currentUser"], ["socket"])
+  }
+};
 </script>
