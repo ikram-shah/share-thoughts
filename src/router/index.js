@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import store from "../store";
 import Home from "../views/Home.vue";
 import Coverpage from "../views/CoverPage.vue";
+import Users from "../views/Users.vue";
 import Signin from "../views/Signin.vue";
 import Signup from "../views/Signup.vue";
 
@@ -21,6 +22,14 @@ const routes = [
     path: "/home",
     name: "Home",
     component: Home,
+    meta: {
+      authRequired: true
+    }
+  },
+  {
+    path: "/users",
+    name: "Users",
+    component: Users,
     meta: {
       authRequired: true
     }
