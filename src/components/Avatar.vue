@@ -3,14 +3,18 @@
     <b-tooltip :label="avatarLabel" type="is-dark" position="is-bottom">
       <div v-if="!showCount" class="avatar__icon" :style="backgroundColor">
         <div class="avatar__initials">{{ name[0] }}</div>
-         <img
-            class="avatar__image"
-            :src="randomAvatar"
-      />
+        <img class="avatar__image" :src="randomAvatar" />
         <div class="avatar__notifications" :style="statusColor" />
       </div>
     </b-tooltip>
-    <b-tooltip size="is-small"  :label="toolTip" type="is-dark" multilined animated position="is-bottom">
+    <b-tooltip
+      size="is-small"
+      :label="toolTip"
+      type="is-dark"
+      multilined
+      animated
+      position="is-bottom"
+    >
       <div v-if="showCount" class="avatar__icon" :style="backgroundColor">
         <div class="avatar__initials">{{ name }}</div>
       </div>
@@ -22,9 +26,9 @@
 export default {
   props: ["status", "name", "showCount", "toolTip"],
   computed: {
-    randomAvatar() { 
-      let num = Math.floor(Math.random() * 15) + 1
-      return require(`../assets/avatars/${num}.png`)
+    randomAvatar() {
+      let num = Math.floor(Math.random() * 15) + 1;
+      return require(`../assets/avatars/${num}.png`);
     },
     avatarLabel() {
       return `${this.name} (${this.status}) `;
@@ -133,11 +137,11 @@ body {
   margin-left: 1rem;
 }
 ._abcd.b-tooltip:after {
-    white-space: pre;
+  white-space: pre;
 }
 
 .b-tooltip.is-bottom.is-multiline.is-small:after {
-    width: unset;
+  width: unset;
 }
 
 .navbar-item img {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="socket.message.length <=5">
+    <div v-if="socket.message.length <= 5">
       <avatar
         v-for="(items, i) in socket.message"
         :key="i"
@@ -10,12 +10,16 @@
     </div>
     <div v-else>
       <avatar
-        v-for="(items, i) in socket.message.slice(0,userDisplayCount)"
+        v-for="(items, i) in socket.message.slice(0, userDisplayCount)"
         :key="i"
         :status="items.data.status"
         :name="items.data.user.user_metadata.full_name"
       />
-      <avatar :showCount="true" :name="countToDisplay" :toolTip="toolTipUserStatus" />
+      <avatar
+        :showCount="true"
+        :name="countToDisplay"
+        :toolTip="toolTipUserStatus"
+      />
     </div>
   </div>
 </template>
