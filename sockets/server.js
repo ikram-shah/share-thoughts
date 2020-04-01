@@ -17,7 +17,8 @@ function updateStatus(id, status) {
         {
             method: "POST",
             body: JSON.stringify({
-                status: status
+                status: status,
+                lastUpdated: new Date()
             })
         })
         .then(function (res) { return res.json(); })

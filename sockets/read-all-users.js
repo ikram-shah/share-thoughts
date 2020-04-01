@@ -16,6 +16,9 @@ async function getUsers() {
             return q.Get(ref)
         })
         const ret = await client.query(getAllUserDataQuery)
+        console.log(ret.sort(function(a, b) {
+            return new Date(b['data']['lastUpdated']) - new Date(a['data']['lastUpdated']);
+        }))
         return ret
     }
     catch (error) {
