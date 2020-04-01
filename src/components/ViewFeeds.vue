@@ -45,7 +45,7 @@ export default {
     getFeeds() {
       let here = this;
       here.openLoading();
-      fetch("http://localhost:9000/.netlify/functions/read-all-feeds")
+      fetch(`${process.env.VUE_APP_API_URL}/read-all-feeds`)
         .then(response => {
           return response.json();
         })

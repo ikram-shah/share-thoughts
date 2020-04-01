@@ -46,7 +46,7 @@ export default {
     postFeed() {
       let here = this;
       here.openLoading();
-      fetch(`http://localhost:9000/.netlify/functions/create-feed`, {
+      fetch(`${process.env.VUE_APP_API_URL}/create-feed`, {
         method: "POST",
         body: JSON.stringify({
           body: this.feed,

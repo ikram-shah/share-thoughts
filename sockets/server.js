@@ -13,7 +13,7 @@ const server = express()
 const wss = new Server({ server });
 
 function updateStatus(id, status) {
-    fetch(`http://localhost:9000/.netlify/functions/update-user/${id}`,
+    fetch(`${process.env.VUE_APP_API_URL}/update-user/${id}`,
         {
             method: "POST",
             body: JSON.stringify({

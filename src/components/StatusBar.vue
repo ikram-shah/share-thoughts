@@ -90,7 +90,7 @@ export default {
     readAllUsers() {
       this.openLoading();
       axios
-        .get("http://localhost:9000/.netlify/functions/read-all-users")
+        .get(`${process.env.VUE_APP_API_URL}/read-all-users`)
         .then(response => {
           this.closeLoading();
           this.userData = response.data;
@@ -106,13 +106,13 @@ export default {
       this.updatePayload.userId = user[0].ref["@ref"].id;
       Vue.use(
         VueNativeSock,
-        `ws://localhost:3000/?uuid=${this.updatePayload.userId}`,
+        `wss://sharethoughts-presense.herokuapp.com/?uuid=${this.updatePayload.userId}`,
         { format: "json", store: store }
       );
       return this.updatePayload.userId;
     },
     updateStatus(status, id) {
-      fetch(`http://localhost:9000/.netlify/functions/update-user/${id}`, {
+      fetch(`${process.env.VUE_APP_API_URL}/update-user/${id}`, {
         method: "POST",
         body: JSON.stringify({
           status: status,
