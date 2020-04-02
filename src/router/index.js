@@ -6,6 +6,7 @@ import Coverpage from "../views/CoverPage.vue";
 import Users from "../views/Users.vue";
 import Signin from "../views/Signin.vue";
 import Signup from "../views/Signup.vue";
+import DefaultRoute from "../views/Default.vue";
 
 Vue.use(VueRouter);
 
@@ -46,6 +47,14 @@ const routes = [
     path: "/signup",
     name: "Signup",
     component: Signup,
+    meta: {
+      authRequired: false
+    }
+  },
+  {
+    path: "*",
+    name: "Default",
+    component: DefaultRoute,
     meta: {
       authRequired: false
     }
