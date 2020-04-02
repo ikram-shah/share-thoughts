@@ -1,17 +1,13 @@
 <template>
   <div>
-    <b-loading
-      :is-full-page="false"
-      :active.sync="isLoading"
-      :can-cancel="false"
-    ></b-loading>
+    <b-loading :is-full-page="false" :active.sync="isLoading" :can-cancel="false"></b-loading>
     <div class="container addFeedContainer">
       <b-input
         class="is-mobile"
         rows="2"
         expanded
         size="is-medium"
-        placeholder="Any thoughts?"
+        :placeholder="inputPlaceHolder"
         v-model="feed"
         maxlength="140"
         type="textarea"
@@ -34,7 +30,10 @@ export default {
     };
   },
   computed: {
-    ...mapState("auth", ["currentUser"])
+    ...mapState("auth", ["currentUser"]),
+    inputPlaceHolder() {
+      return `Hey ${this.currentUser.user_metadata.full_name}..! Any thoughts ??`;
+    }
   },
   methods: {
     openLoading() {
@@ -43,35 +42,41 @@ export default {
     closeLoading() {
       this.isLoading = false;
     },
+    validateFeed() {
+      if (this.feed == "" || this.feed == null) {
+        this.$buefy.toast.open({
+          message: `Error: Empty feed cannot be added.`,
+          type: "is-danger"
+        });
+      } else {
+        return true;
+      }
+    },
     postFeed() {
       let here = this;
-      here.openLoading();
-      fetch(`${process.env.VUE_APP_API_URL}/create-feed`, {
-        method: "POST",
-        body: JSON.stringify({
-          body: this.feed,
-          date: new Date(),
-          author: this.currentUser.user_metadata.full_name
+      if (here.validateFeed()) {
+              here.openLoading();
+        fetch(`${process.env.VUE_APP_API_URL}/create-feed`, {
+          method: "POST",
+          body: JSON.stringify({
+            body: this.feed,
+            date: new Date(),
+            author: this.currentUser.user_metadata.full_name
+          })
         })
-      })
-        .then(function(res) {
-          return res.json();
-        })
-        .then(function() {
-          here.closeLoading();
-          here.$buefy.toast.open({
-            message: `Added feed successfully.`,
-            type: "is-primary"
+          .then(function(res) {
+            return res.json();
+          })
+          .then(function() {
+            here.closeLoading();
+            here.feed = "";
+            here.$buefy.toast.open({
+              message: `Added feed successfully.`,
+              type: "is-primary"
+            });
+            EventBus.$emit("refreshFeedData");
           });
-          EventBus.$emit("refreshFeedData");
-        })
-        .catch(err => {
-          this.closeLoading();
-          this.$buefy.toast.open({
-            message: `Error: ${err}`,
-            type: "is-danger"
-          });
-        });
+      }
     }
   }
 };
