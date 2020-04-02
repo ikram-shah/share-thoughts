@@ -10,9 +10,14 @@
         <img src="https://github.com/ikram-shah/share-thoughts/workflows/Sockets%20CI/badge.svg" /></a>
 </p>
 
+
 <p align="center">
 Sharethoughts is a simple application where user can share their thoughts (like, own Quotes) and user can track availability status of other users.
 </p>
+
+<p align="center">
+   <img src="https://github.com/ikram-shah/share-thoughts/blob/master/.github/slides/screen_record.gif" width="70%" />
+  </p>
 
 [**DEMO**](https://sharethoughts.netlify.app/)
 
@@ -29,7 +34,6 @@ Sharethoughts is a simple application where user can share their thoughts (like,
     - Buefy: UI components based on Bulma  
     - VueX: State Management
     - Vue Router
-    - Jest
 2. Backend Services - **Node.js**
     - API's (Netlify Functions)
     - Data Streaming (Web Sockets)
