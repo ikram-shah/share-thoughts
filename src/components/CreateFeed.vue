@@ -1,6 +1,10 @@
 <template>
   <div>
-    <b-loading :is-full-page="false" :active.sync="isLoading" :can-cancel="false"></b-loading>
+    <b-loading
+      :is-full-page="false"
+      :active.sync="isLoading"
+      :can-cancel="false"
+    ></b-loading>
     <div class="container addFeedContainer">
       <b-input
         class="is-mobile"
@@ -55,7 +59,7 @@ export default {
     postFeed() {
       let here = this;
       if (here.validateFeed()) {
-              here.openLoading();
+        here.openLoading();
         fetch(`${process.env.VUE_APP_API_URL}/create-feed`, {
           method: "POST",
           body: JSON.stringify({

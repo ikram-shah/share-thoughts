@@ -59,7 +59,7 @@ export default {
         return "Yesterday";
       } else {
         return (
-          ("0" + (compDate.getDate())).slice(-2) +
+          ("0" + compDate.getDate()).slice(-2) +
           "-" +
           ("0" + (compDate.getMonth() + 1)).slice(-2) +
           "-" +
