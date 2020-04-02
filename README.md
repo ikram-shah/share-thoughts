@@ -30,7 +30,7 @@ Sharethoughts is a simple application where user can share their thoughts (like,
     - VueX: State Management
     - Vue Router
     - Jest
-2. Backend - **Node.js**
+2. Backend Services - **Node.js**
     - API's (Netlify Functions)
     - Data Streaming (Web Sockets)
 3. Database - **FaunaDB**
@@ -41,32 +41,54 @@ Sharethoughts is a simple application where user can share their thoughts (like,
     - API: Netlify Functions
     - Data Streaming: Heroku
 
-## Project setup
-```
-npm install
-```
+## Architecture
 
-### Compiles and hot-reloads for development
+<p align="center">
+  <img  src="https://github.com/ikram-shah/share-thoughts/blob/master/.github/slides/all_components.png" width="70%" />
+  <img src="https://github.com/ikram-shah/share-thoughts/blob/master/.github/slides/signup.png" width="49%" /> 
+   <img src="https://github.com/ikram-shah/share-thoughts/blob/master/.github/slides/login.png" width="49%" /> 
+   <img src="https://github.com/ikram-shah/share-thoughts/blob/master/.github/slides/logout.png" width="49%" /> 
+   <img src="https://github.com/ikram-shah/share-thoughts/blob/master/.github/slides/feeds.png" width="49%" /> 
+   <img src="https://github.com/ikram-shah/share-thoughts/blob/master/.github/slides/users_and_status.png" width="49%" /> 
+</p>
+
+
+## Project setup
+**NOTE:** Setup environment variables by referring to .env file
+### Frontend (VueJS)
+
+**To Run**
+```
+npm ci
+```
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
+**To Build**
 ```
 npm run build
 ```
 
-### Run your tests
-```
-npm run test
-```
+### Backend Services (VueJS)
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
+- **API's**
+  ```
+  npm ci
+  ```
+  ```
+  npm run start:server
+  ```
+  **To Build**
+  ```
+  npm run build:functions
+  ```
+- **Data Streaming (WebSockets)**
+  ```
+  cd sockets
+  ```
+  ```
+  npm ci
+  ```
+  ```
+  node server
+  ```
