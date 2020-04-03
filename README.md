@@ -75,6 +75,8 @@ npm run build
 
 ### Backend Services (VueJS)
 
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/7cff072ebd5987fc4597#?env%5BShareThoughts%5D=W3sia2V5IjoiYXBpVVJMIiwidmFsdWUiOiIiLCJlbmFibGVkIjp0cnVlfSx7ImtleSI6ImxvY2FsaG9zdCIsInZhbHVlIjoiIiwiZW5hYmxlZCI6ZmFsc2V9XQ==)
+
 - **API's**
   ```
   npm ci
